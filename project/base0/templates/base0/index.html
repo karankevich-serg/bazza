@@ -1,0 +1,176 @@
+{% extends 'base0/base.html' %}
+{% block title %}
+index
+{% endblock %}
+{% block Name1 %}
+АПК СПМ
+{% endblock %}
+{% block Name2 %}
+ЦПЛ МЦК
+{% endblock %}
+
+
+{% block page2 %}
+
+        {{title}}
+        {{bs}}
+
+<h3>table0 = AggregatorsType.objects.all()</h3>
+<table border="1">    <tr>
+        <td>title</td>
+        <td>manufacturer</td>
+        <td>linksIn</td>
+        <td>linksOut</td>
+    </tr>
+        {% for el in t0%}
+            <tr><td>
+            {{ el.title }}</td><td>
+            {{ el.manufacturer }}</td><td>
+            {{el.linksIn}}</td><td>
+            {{el.linksOut}}</td></tr>
+        {% endfor %}
+</table>
+<p>
+<h3>table1 = Aggregator.objects.all()</h3>
+<table border="1">    <tr>
+        <td>title</td>
+        <td>serial</td>
+        <td>inventar</td>
+        <td>city</td>
+        <td>provider</td>
+        <td>type</td>
+        <td>place</td>
+        <td>address</td>
+        <td>person</td>
+        <td>contact</td>
+        <td>info</td>
+    </tr>
+            {% for el in t1%}
+    <tr><td>    {{ el.title }}</td><td>
+                {{ el.serial }}</td><td>
+                {{ el.inventar }}</td><td>
+                {{ el.city }}</td><td>
+                {{ el.provider }}</td><td>
+                <small>{{ el.type }}</small></td><td>
+                <small>{{ el.place }}</small></td><td>
+                <small>{{ el.address }}</small></td><td>
+                <small>{{ el.person }}</small></td><td>
+                <small>{{ el.contact }}</small></td><td>
+                <small>{{ el.info }}</small></td><td>
+    </td></tr>
+        {% endfor %}
+
+    </table>
+<p>
+
+    <h3>table2 = Matrix.objects.all()</h3>
+
+<table border="1">
+    <tr>
+        <td>Направление</td>
+        <td>Агрегатор</td>
+        <td>BSin</td>
+        <td>BSout</td>
+        <td>CARD</td>
+        <td>LED</td>
+        <td>TX</td>
+        <td>Plinth</td>
+        <td>Pair</td>
+        <td>Out.tsm</td>
+        <td>iprobe</td>
+
+
+
+    </tr>
+        {% for el in t2%}
+            <tr><td>
+            {{ el.title                 }}</td><td>
+            {{ el.aggregator                    }}</td><td>
+            {{ el.bsTsmIn.bs                }}</td><td>
+            {{ el.bsTsmOut.bs          }}</td><td>
+            {{ el.bsTsmIn.card          }}</td><td>
+            {{ el.bsTsmIn.led           }}</td><td>
+            {{ el.bsTsmIn.tx            }}</td><td>
+            {{ el.bsTsmIn.plinth        }}</td><td>
+            {{ el.bsTsmIn.pair          }}</td><td>
+            {{ el.bsTsmOut.tsm  }}</td><td>
+            {{ el.bsTsmOut.hw.title  }} </td><td>
+            </td></tr>
+        {% endfor %}
+   <tr> <td>
+
+    </table>
+
+
+<p><p>
+<h3>table4 = Stream.objects.all()</h3>
+
+
+<table border="1">
+    <tr>
+        <td>title</td>
+        <td>hw</td>
+        <td>BS</td>
+        <td>CARD</td>
+        <td>LED</td>
+        <td>TX</td>
+        <td>Plinth</td>
+        <td>Pair</td>
+        <td>last_updated</td>
+    </tr>
+        {% for el in t4%}
+            <tr><td>
+            {{ el.StreamDirection                 }}</td><td>
+            {{ el.TsToBs.hw                    }}</td><td>
+            {{ el.TsToBs.title             }}</td><td>
+            {{ el.TsToBs.card          }}</td><td>
+            {{ el.TsToBs.led           }}</td><td>
+            {{ el.TsToBs.tx            }}</td><td>
+            {{ el.TsToBs.plinth        }}</td><td>
+            {{ el.TsToBs.pair          }}</td><td>
+            {{ el.TsToBs.last_updated  }}
+            </td></tr>
+        {% endfor %}
+   <tr> <td>
+
+    </table>
+
+<p><p>
+<h3>table3 = Direction.objects.all()</h3>
+<table border="1">
+    <tr>
+        <td>title</td>
+        <td>hw</td>
+        <td>BS</td>
+        <td>CARD</td>
+        <td>LED</td>
+        <td>TX</td>
+        <td>Plinth</td>
+        <td>Pair</td>
+        <td>last_updated</td>
+    </tr>
+        {% for el in t3%}
+            <tr><td>
+            {{ el.title                 }}</td><td>
+            {{ el.hw                    }}</td><td>
+            {{ el.BsInTsm               }}</td><td>
+            {{ el.BsInTsm.card          }}</td><td>
+            {{ el.BsInTsm.led           }}</td><td>
+            {{ el.BsInTsm.tx            }}</td><td>
+            {{ el.BsInTsm.plinth        }}</td><td>
+            {{ el.BsInTsm.pair          }}</td><td>
+            {{ el.BsInTsm.last_updated  }}
+            </td></tr>
+        {% endfor %}
+   <tr> <td>
+
+    </table>
+{% endblock %}
+
+
+{% block center %}
+ База данных - это: совокупность данных, организованных по определенным правилам;
+совокупность программ для хранения и обработки больших массивов информации;
+интерфейс, поддерживающий наполнение и манипулирование данными;
+определенная совокупность информации.
+{% endblock %}
