@@ -13,7 +13,7 @@ def index(request):
     table1 = Aggregator.objects.all()
     table2 = Matrix.objects.all()
     table3 = Direction.objects.all()
-    table4 = Stream.objects.all()
+    table4 = Object.objects.all()
     return render(request,'base0/index.html', {'title': 'ТАБЛИЦЫ ТЕСТОВЫЕ', 't0': table0, 't1': table1, 't2': table2, 't3': table3, 't4': table4})
 
 

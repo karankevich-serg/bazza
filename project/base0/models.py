@@ -2,6 +2,7 @@ from django.db import models
 from django_extensions.db import fields as extension_fields
 
 # Create your models here.
+
 class City(models.Model):
 
     # Fields 1
@@ -10,6 +11,7 @@ class City(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     def __str__(self):
         return f'{self.title}'
+
 
 class Direction(models.Model):
 
@@ -20,9 +22,6 @@ class Direction(models.Model):
 
     def __str__(self):
         return f'{self.title}'
-
-
-
 
 
 class AggregatorsType(models.Model):
@@ -73,6 +72,7 @@ class Timeslot(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     def __str__(self):
         return f'TS-{self.title} '
+
 
 class BsInTsm(models.Model):
     # Fields 1
@@ -163,6 +163,7 @@ class Matrix(models.Model):
     def __str__(self):
         return f"  {self.bsTsmIn} {self.title} aggregator-{self.aggregator} {self.bsTsmOut} "
 
+
 class Iprobe(models.Model):
     # Fields 1
     title = models.CharField(max_length=30, unique=False, default="n/a")
@@ -209,16 +210,30 @@ class Iprobe(models.Model):
     def __str__(self):
         return f"   trunk={self.title} iprobe={self.iprobe} card={self.card}   "
 
-class Stream(models.Model):
+
+class Object(models.Model):
+    TS_CHOICES = [(str(i), 'ts' + str(i)) for i in range(1, 32)]
+    TSM_CHOICES = [(str(i), 'tsm' + str(i)) for i in range(1, 3)]
     # Fields 1
     title = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(populate_from='title', blank=True)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
+    city = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    vertical = models.CharField(max_length=255)
+    plinth = models.CharField(max_length=255)
+    pair = models.CharField(max_length=255)
     # Relationship Fields
-    ts_0 = models.ForeignKey('TimeSlot', on_delete=models.PROTECT, related_name="TS0", null=True, default="", )
-    StreamDirection = models.OneToOneField('Direction', on_delete=models.PROTECT, related_name="stream_direction", unique=True, )
-    TsToBs = models.ForeignKey(BsInTsm, on_delete=models.PROTECT)
-    ts_1 = models.ForeignKey('TimeSlot', on_delete=models.PROTECT, related_name="TS1", null=True, default="", )
-
+    ts0 = models.CharField(max_length=2, choices=TS_CHOICES, default='')
+    # streamDirection = models.OneToOneField('Direction', on_delete=models.PROTECT, related_name="stream_direction", unique=True, )
+    bs = models.ForeignKey(BsInTsm, on_delete=models.PROTECT)
+    ts1 = models.ForeignKey('TimeSlot', on_delete=models.PROTECT, related_name="TS1", null=True, default="", )
+    tsm = models.CharField(max_length=2, choices=TSM_CHOICES, default='')
+    tx1 = "1"
+    tx0 = "0"
+    TX_CHOICES = ((tx1, 'TX'),(tx0, 'RX'),)
+    tx = models.CharField(max_length=8,choices=TX_CHOICES, default='')
+    class Meta:
+        unique_together = ('tsm', 'bs','ts1',)
     def __str__(self):
-        return f'{self.StreamDirection}--TS0={self.ts_0} --> BS{self.TsToBs} /TS1={self.ts_1}'
+        return f'{self.title}--TS0={self.ts0} --> BS{self.bs} /TS1={self.ts1}'
